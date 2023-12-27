@@ -1,0 +1,7 @@
+<h2>{{welcome}}</h2>
+<ul>
+  <p>total: {{ tasks().length }}</p>
+  <li *ngFor="let task of tasks(); index as i">
+    {{ i }} {{ task }}
+  </li>
+</ul>
