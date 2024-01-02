@@ -10,23 +10,25 @@
         type="text"
         (keyup.enter)="changeHandler()"
         [formControl] = "newTaskCtrl"
-      />
+        />
     </div>
   </header>
   <div class="container todoapp-wrapper">
     <section class="main">
       <ul class="todo-list">
-        <li *ngFor="let task of tasksByFilter(); index as index"
-          [class.completed] = "task.completed"
-          [class.editing]= "task.editing"
-          (dblclick)="updateTaskEdit(index)">
-          <div class="view">
-            <input class="toggle" type="checkbox" [checked]="task.completed" (change)="updateTask(index)"/>
-            <label>{{ task.title }}</label>
-            <button class="destroy" (click)="deleteTask(index)"></button>
-          </div>
-          <input class="edit" [value]="task.title" (keyup.enter)="updateTaskTitle(index, $event)"/>
-        </li>
+        @for (task of tasksByFilter(); track task; let index = $index) {
+          <li
+            [class.completed] = "task.completed"
+            [class.editing]= "task.editing"
+            (dblclick)="updateTaskEdit(index)">
+            <div class="view">
+              <input class="toggle" type="checkbox" [checked]="task.completed" (change)="updateTask(index)"/>
+              <label>{{ task.title }}</label>
+              <button class="destroy" (click)="deleteTask(index)"></button>
+            </div>
+            <input class="edit" [value]="task.title" (keyup.enter)="updateTaskTitle(index, $event)"/>
+          </li>
+        }
       </ul>
     </section>
     @if (tasks().length > 0) {
